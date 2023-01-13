@@ -8,6 +8,11 @@
     "test": "nx test",
     "prepare": "husky install"
   },
+  "config": {
+    "commitizen": {
+      "path": "@commitlint/cz-commitlint"
+    }
+  },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
