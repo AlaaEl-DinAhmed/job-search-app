@@ -1,11 +1,20 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { GlobalHttpModule } from './global-http.module';
 import { JobsModule } from './jobs/jobs.module';
-
 @Module({
-  imports: [GlobalHttpModule, JobsModule],
+  imports: [
+    TypeOrmModule.forRoot({
+      type: 'sqlite',
+      database: 'db.sqlite',
+      entities: [],
+      synchronize: true,
+    }),
+    GlobalHttpModule,
+    JobsModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
