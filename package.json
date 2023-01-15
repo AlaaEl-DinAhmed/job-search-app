@@ -6,12 +6,18 @@
     "start": "nx run-many --parallel --target=serve --projects=server,job-search-app",
     "build": "nx build",
     "test": "nx test",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "migrate": "npx prisma migrate dev",
+    "studio": "npx prisma studio",
+    "seed": "ts-node ./prisma/seed.ts"
   },
   "config": {
     "commitizen": {
       "path": "@commitlint/cz-commitlint"
     }
+  },
+  "prisma": {
+    "schema": "./prisma/schema.prisma"
   },
   "dependencies": {
     "@nestjs/axios": "^1.0.1",
@@ -20,6 +26,7 @@
     "@nestjs/platform-express": "^9.0.0",
     "@nestjsi/class-validator": "^0.2.2",
     "@nrwl/next": "15.5.0",
+    "@prisma/client": "^4.8.1",
     "@reduxjs/toolkit": "^1.9.1",
     "class-transformer": "^0.5.1",
     "next": "13.1.1",
@@ -78,6 +85,7 @@
     "lint-staged": "^13.1.0",
     "nx": "15.5.0",
     "prettier": "^2.6.2",
+    "prisma": "^4.8.1",
     "react-test-renderer": "18.2.0",
     "ts-jest": "28.0.5",
     "ts-node": "10.9.1",
