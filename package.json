@@ -18,6 +18,7 @@
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/typeorm": "^9.0.1",
     "@nestjsi/class-validator": "^0.2.2",
     "@nrwl/next": "15.5.0",
     "@reduxjs/toolkit": "^1.9.1",
@@ -29,8 +30,10 @@
     "react-redux": "^8.0.5",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.0.0",
+    "sqlite3": "^5.1.4",
     "styled-components": "5.3.6",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "typeorm": "^0.3.11"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.14.5",

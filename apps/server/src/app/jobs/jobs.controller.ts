@@ -4,10 +4,10 @@ import { JobsService } from './jobs.service';
 
 @Controller('jobs')
 export class JobsController {
-  constructor(private readonly appService: JobsService) {}
+  constructor(private readonly jobsService: JobsService) {}
 
   @Get()
   getJobs(@Query() query: JobQueryDto) {
-    return this.appService.getJobs(query);
+    return this.jobsService.getJobs(query);
   }
 }
