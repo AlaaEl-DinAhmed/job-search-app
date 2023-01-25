@@ -3,19 +3,21 @@ import {
   Controller,
   Delete,
   Get,
+  HttpStatus,
   NotFoundException,
   Param,
   Patch,
   Post,
   Query,
+  Res,
   UseInterceptors,
 } from '@nestjs/common';
+import { Response } from 'express';
 import { SerializeInterceptor } from '../interceptors/serialize.interceptor';
 import { AuthService } from '../services/auth.service';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UserDto } from './dtos/user.dto';
 import { UsersService } from './users.service';
-
 @Controller('auth')
 @UseInterceptors(new SerializeInterceptor(UserDto))
 export class UsersController {
@@ -25,13 +27,32 @@ export class UsersController {
   ) {}
 
   @Post('/signup')
-  createUser(@Body() body: CreateUserDto) {
-    return this.authService.signUp(body);
+  async createUser(
+    @Body() body: CreateUserDto,
+    @Res({ passthrough: true }) response: Response
+  ) {
+    const user = await this.authService.signUp(body);
+    response.cookie('userId', user.id);
+
+    return user;
   }
 
   @Post('/signin')
-  signIn(@Body() body: CreateUserDto) {
-    return this.authService.signIn(body);
+  async signIn(
+    @Body() body: CreateUserDto,
+    @Res({ passthrough: true }) response: Response
+  ) {
+    const user = await this.authService.signIn(body);
+    response.cookie('userId', user.id);
+
+    return user;
+  }
+
+  @Post('/signout')
+  async signOut(@Res() response: Response) {
+    response.cookie('userId', '', { expires: new Date() });
+
+    return response.status(HttpStatus.OK).json();
   }
 
   @Get('/users')
