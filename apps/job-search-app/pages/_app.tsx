@@ -3,7 +3,6 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { Provider } from 'react-redux';
 import { store } from '../store/store';
-import './styles.css';
 
 function CustomApp({ Component, pageProps }: AppProps) {
   return (
