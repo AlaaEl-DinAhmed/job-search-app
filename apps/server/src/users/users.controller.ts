@@ -13,13 +13,16 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { Response } from 'express';
+import { CurrentUser } from '../decorators/current-user.decorator';
+import { CurrentUserInterceptor } from '../interceptors/current-user.interceptor';
 import { SerializeInterceptor } from '../interceptors/serialize.interceptor';
 import { AuthService } from '../services/auth.service';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UserDto } from './dtos/user.dto';
 import { UsersService } from './users.service';
+
 @Controller('auth')
-@UseInterceptors(new SerializeInterceptor(UserDto))
+@UseInterceptors(CurrentUserInterceptor, new SerializeInterceptor(UserDto))
 export class UsersController {
   constructor(
     private userService: UsersService,
@@ -40,7 +43,8 @@ export class UsersController {
   @Post('/signin')
   async signIn(
     @Body() body: CreateUserDto,
-    @Res({ passthrough: true }) response: Response
+    @Res({ passthrough: true }) response: Response,
+    @CurrentUser() id: string
   ) {
     const user = await this.authService.signIn(body);
     response.cookie('userId', user.id);
